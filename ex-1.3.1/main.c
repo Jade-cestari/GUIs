@@ -24,7 +24,7 @@ int main(int argc, char* args[]) {
         SDL_RenderFillRect(ren, &r);
         SDL_RenderPresent(ren);
 
-        SDL_Delay(10);
+        SDL_Delay(100);
 
         if (dir == 0) r.y += step;      
         else if (dir == 1) r.x += step;  
