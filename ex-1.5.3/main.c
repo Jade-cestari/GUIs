@@ -1,3 +1,5 @@
+//animação escolhida: quando o usuário aperta qualquer tecla, o quadrado se move mais rápido e troca de cor
+
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 
