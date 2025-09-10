@@ -1,10 +1,8 @@
-//animação escolhida: quando o usuário aperta qualquer tecla, o quadrado se move mais rápido e troca de cor
-
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 
 int main(int argc, char* args[]) {
-    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window* win = SDL_CreateWindow("ex-1.3.1",
                          SDL_WINDOWPOS_CENTERED,
@@ -27,15 +25,13 @@ int main(int argc, char* args[]) {
 
     while (running) {
         SDL_Event e;
-        while (SDL_PollEvent(&e)) {
+        if (SDL_WaitEventTimeout(&e, 1)) {
             if (e.type == SDL_QUIT) {
                 running = false;
-            }
-            else if (e.type == SDL_KEYDOWN) {
+            } else if (e.type == SDL_KEYDOWN) {
                 speedBoost = true;
                 red = true;
-            }
-            else if (e.type == SDL_KEYUP) {
+            } else if (e.type == SDL_KEYUP) {
                 speedBoost = false;
                 red = false;
             }
@@ -45,30 +41,32 @@ int main(int argc, char* args[]) {
         if (now - lastTick >= 100) {
             lastTick = now;
 
-            int moveStep = speedBoost ? step * 2 : step;
+            int oldStep = step;
+            if (speedBoost) step = 2; else step = 1;
 
-            if (dir == 0) r.y += moveStep;
-            else if (dir == 1) r.x += moveStep;
-            else if (dir == 2) r.y -= moveStep;
-            else if (dir == 3) r.x -= moveStep;
+            if (dir == 0) r.y += step;
+            else if (dir == 1) r.x += step;
+            else if (dir == 2) r.y -= step;
+            else if (dir == 3) r.x -= step;
 
-            count += moveStep;
+            count += step;
             if (count >= side) {
                 dir = (dir + 1) % 4;
                 count = 0;
             }
+
+            step = oldStep;
         }
 
         SDL_SetRenderDrawColor(ren, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(ren);
 
-        if (red) {
+        if (red)
             SDL_SetRenderDrawColor(ren, 0xFF, 0x00, 0x00, 0xFF);
-        } else {
+        else
             SDL_SetRenderDrawColor(ren, 0x00, 0x00, 0x00, 0xFF);
-        }
-        SDL_RenderFillRect(ren, &r);
 
+        SDL_RenderFillRect(ren, &r);
         SDL_RenderPresent(ren);
     }
 
