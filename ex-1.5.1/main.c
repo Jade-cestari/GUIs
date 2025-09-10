@@ -2,18 +2,16 @@
 #include <stdbool.h>
 
 int main(int argc, char* argv[]) {
-    SDL_Init(SDL_INIT_VIDEO);
-
     SDL_Window* window = SDL_CreateWindow("Exemplo SDL2",
                                           SDL_WINDOWPOS_CENTERED,
                                           SDL_WINDOWPOS_CENTERED,
                                           200, 300, 0);
- 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
-    SDL_Rect rect1 = {20, 50, 40, 40};  
-    SDL_Rect rect2 = {80, 50, 40, 40};  
-    SDL_Rect rect3 = {140, 50, 40, 40};  
+    SDL_Renderer* ren = SDL_CreateRenderer(window, -1, 0);
+
+    SDL_Rect rect1 = {20, 50, 40, 40};
+    SDL_Rect rect2 = {80, 50, 40, 40};
+    SDL_Rect rect3 = {140, 50, 40, 40};
 
     int velocidade = 3;
     bool rodando = true;
@@ -44,22 +42,22 @@ int main(int argc, char* argv[]) {
         rect3.x = mouseX - rect3.w / 2;
         rect3.y = mouseY - rect3.h / 2;
 
-        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-        SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(ren, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_RenderClear(ren);
 
-        SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
-        SDL_RenderFillRect(renderer, &rect1);
+        SDL_SetRenderDrawColor(ren, 0xFF, 0x00, 0x00, 0xFF);
+        SDL_RenderFillRect(ren, &rect1);
 
-        SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
-        SDL_RenderFillRect(renderer, &rect2);
+        SDL_SetRenderDrawColor(ren, 0x00, 0xFF, 0x00, 0xFF);
+        SDL_RenderFillRect(ren, &rect2);
 
-        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
-        SDL_RenderFillRect(renderer, &rect3);
+        SDL_SetRenderDrawColor(ren, 0x00, 0x00, 0xFF, 0xFF);
+        SDL_RenderFillRect(ren, &rect3);
 
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(ren);
     }
 
-    SDL_DestroyRenderer(renderer);
+    SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(window);
     SDL_Quit();
     return 0;
