@@ -34,8 +34,4 @@ O programa é estruturado em algumas partes principais:
 - **Finalização**  
   Destroi renderer, janela e finaliza SDL quando o usuário fecha a janela.
 
-### Resumindo o fluxo:
-1. Você clica no mesmo ponto várias vezes dentro de 250 ms.  
-2. O programa conta quantos cliques ocorreram.  
-3. Quando passa 250 ms sem clique, ele desenha um quadrado proporcional ao número de cliques.  
-4. O processo se repete para cada nova sequência de cliques.
+
